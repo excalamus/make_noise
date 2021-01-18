@@ -2,7 +2,7 @@
 
 ![the make noise application](extras/overview.png "Make Noise")
 
-<audio src="extras/output.wav" controls autoplay loop></audio>
+![What it sounds like](extras/output.wav "What it sounds like")
 
 ## What is **make_noise**?
 The **make_noise** application strives to live up to its name by
