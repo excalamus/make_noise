@@ -1,5 +1,7 @@
 # Make Noise
 
+![the make noise application](extras/overview.png "Make Noise")
+
 ## What is **make_noise**?
 The **make_noise** application strives to live up to its name by
 making noise.  It does this with
