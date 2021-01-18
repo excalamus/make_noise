@@ -6,9 +6,14 @@ import atexit
 
 from PySide2 import QtCore, QtWidgets, QtGui
 
+if sys.platform == "linux":
+    SOX = "sox"
+    AUDIODEVICE = "alsa"
+elif sys.platform == "win32":
+    SOX = "bin\\sox.exe"
+    AUDIODEVICE = "waveaudio"
 
 PID = None
-SOX = "sox.exe"
 
 def resource_path(relative_path):
      if hasattr(sys, '_MEIPASS'):
@@ -54,6 +59,7 @@ class TrayIcon(QtWidgets.QSystemTrayIcon):
             self.toggle_noise()
 
     def toggle_noise(self):
+        global AUDIODEVICE
         if self.is_playing:
             try:
                 clean_up(pid=self.subp.pid)
@@ -66,15 +72,16 @@ class TrayIcon(QtWidgets.QSystemTrayIcon):
                 pass
 
         else:
+            sox_path = self.sox
+            # print(sox_path, flush=True)
+            audio_device = '-t ' + AUDIODEVICE
 
-            sox_path = 'bin\\'+self.sox
-            print(sox_path, flush=True)
             args = [
                 sox_path,
                 '--no-show-progress',
                 '-c 2',
                 '--null',
-                '-t waveaudio',
+                audio_device,
                 'synth 3600 brownnoise',
                 'band -n 1500 499',
                 'tremolo 0.05 43',
@@ -87,6 +94,7 @@ class TrayIcon(QtWidgets.QSystemTrayIcon):
             ]
 
             the_call = ' '.join(args)
+            # print('HERE: ', the_call, flush=True)
             self.subp = subprocess.Popen(the_call, shell=True)
             global PID
             PID = self.subp.pid
@@ -100,21 +108,31 @@ class TrayIcon(QtWidgets.QSystemTrayIcon):
 def clean_up(pid=None):
     if pid:
         try:
-            os.system("taskkill /F /T /PID %i" % pid)
+            if sys.platform == "linux":
+                os.system("kill %i" % pid)
+            elif sys.platform == "win32":
+                os.system("taskkill /F /T /PID %i" % pid)
         except:
-            pass
+             pass
     else:
         try:
             global PID
-            os.system("taskkill /F /T /PID %i" % PID)
+            if sys.platform == "linux":
+                os.system("kill %i" % PID)
+            elif sys.platform == "win32":
+                os.system("taskkill /F /T /PID %i" % PID)
+
         except:
-            pass
+             pass
 
     try:
         global SOX
-        os.system("taskkill /F /T /IM %s" % SOX)
+        if sys.platform == "linux":
+            os.system("pkill %s" % SOX)
+        elif sys.platform == "win32":
+            os.system("taskkill /F /T /IM %s" % SOX)
     except:
-        pass
+         pass
 
 atexit.register(clean_up)
 
