@@ -1,0 +1,55 @@
+# -*- mode: python ; coding: utf-8 -*-
+
+block_cipher = None
+
+
+a = Analysis(['make_noise.py'],
+             pathex=['c:\\projects\\make_noise'],
+             binaries=[
+                 ('c:\\projects\\make_noise\\bin\\libflac-8.dll', 'bin/'),
+                 ('c:\\projects\\make_noise\\bin\\libgcc_s_sjlj-1.dll', 'bin/'),
+                 ('c:\\projects\\make_noise\\bin\\libgomp-1.dll', 'bin/'),
+                 ('c:\\projects\\make_noise\\bin\\libid3tag-0.dll', 'bin/'),
+                 ('c:\\projects\\make_noise\\bin\\libogg-0.dll', 'bin/'),
+                 ('c:\\projects\\make_noise\\bin\\libpng16-16.dll', 'bin/'),
+                 ('c:\\projects\\make_noise\\bin\\libsox-3.dll', 'bin/'),
+                 ('c:\\projects\\make_noise\\bin\\libssp-0.dll', 'bin/'),
+                 ('c:\\projects\\make_noise\\bin\\libvorbis-0.dll', 'bin/'),
+                 ('c:\\projects\\make_noise\\bin\\libvorbisenc-2.dll', 'bin/'),
+                 ('c:\\projects\\make_noise\\bin\\libvorbisfile-3.dll', 'bin/'),
+                 ('c:\\projects\\make_noise\\bin\\libwavpack-1.dll', 'bin/'),
+                 ('c:\\projects\\make_noise\\bin\\libwinpthread-1.dll', 'bin/'),
+                 ('c:\\projects\\make_noise\\bin\\sox.exe', 'bin/'),
+                 ('c:\\projects\\make_noise\\bin\\zlib1.dll', 'bin/'),
+             ],
+             datas=[],
+             hiddenimports=[],
+             hookspath=[],
+             runtime_hooks=[],
+             excludes=[],
+             win_no_prefer_redirects=False,
+             win_private_assemblies=False,
+             cipher=block_cipher,
+             noarchive=False)
+pyz = PYZ(a.pure, a.zipped_data,
+             cipher=block_cipher)
+exe = EXE(pyz,
+          a.scripts,
+          a.binaries,
+          a.zipfiles,
+          a.datas,
+          [],
+          name='make_noise',
+          debug=False,
+          bootloader_ignore_signals=False,
+          strip=False,
+          upx=True,
+          console=False, )
+# coll = COLLECT(exe,
+#                a.binaries,
+#                a.zipfiles,
+#                a.datas,
+#                strip=False,
+#                upx=True,
+#                upx_exclude=[],
+#                name='make_noise')
