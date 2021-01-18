@@ -31,7 +31,7 @@ The call and kill are combined in a beautiful default-style taskbar
 button.  When the button is green, there should be no noise.  Double
 clicking the green button makes noise:
 
-![a green button](extras/green-button.png "Green Butto
+![a green button](extras/green-button.png "Green Button")
 
 When there is noise, the button is red.  Double clicking the red
 button stops the noise:
