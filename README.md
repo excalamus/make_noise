@@ -1,3 +1,5 @@
+Development has moved to: https://codeberg.org/excalamus/make_noise
+
 # Make Noise
 
 ![the make noise application](extras/overview.png "Make Noise")
